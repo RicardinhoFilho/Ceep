@@ -26,6 +26,7 @@
         input.value = " "; //zerando nosso input
 
         novaTarefa.appendChild(BotaoConcluir());//Adicionando um novo filho por meio do método BotãoConcluir()
+        novaTarefa.appendChild(BotaoDeletar());//Adicionando o botão deletar
 
         //tarefa.innerHTML = conteudo;
     }
@@ -37,33 +38,51 @@
 
 
     novaTarefa.addEventListener("click", criarTarefa) //ao clicar no submit a função criar tarefa é acionada
-
-
-
-
-
-    //Cria o botão concluir 
+    
     const BotaoConcluir = () => {
 
         botaoConcluir = document.createElement('button');//cria um elemento button
-
+    
         botaoConcluir.classList.add('check-button');//adiciona ao novo button a classse check-button - responsável por estiliza-lo
-
+    
         botaoConcluir.innerHTML = "Concluir";//Inserimos dentro do button o texto Concluir
-
+    
         botaoConcluir.addEventListener('click', ConcluirTarefa)//Quando ocorrer o evento de click em cima do botão concluir o mpetodo Concluir tarefa é chamado
-
+    
         return botaoConcluir;//retorna o botão para quem o chamou, neste caso para novaTarefa
     }
-
+    
     //Aplica a ação concluir tarefa
     const ConcluirTarefa = (evento) => {
-
+    
         const botaoAlvo = evento.target;//seleciona o botão que foi clicado(target)
-
+    
         const tarefaCompleta = botaoAlvo.parentElement;//nossa tarefa é um paragrafo dentro de um li, "parentElement" significa que estamos selecionando o elemento pai deste paragrafo, no caso o li
-
+    
         tarefaCompleta.classList.toggle('done')//toggle é o método que utilizamos quando o evento ocorrer, se não estiver adicionada a classe 'done'(responsável por atribuir o estilo na tarefa concluida) estyá classe será adicionada, caso contrário, está classe será removida, consequentemente o estilo de tarefa concluida será removido também
+    }
+
+    const BotaoDeletar = () => {
+
+        const botaoDeleta = document.createElement("button");
+    
+        botaoDeleta.innerHTML = "deletar";
+    
+        botaoDeleta.addEventListener("click", deletarTarefa)
+    
+        return botaoDeleta;
+    }
+    
+    const deletarTarefa = (evento)=>{
+    
+        const botaoAlvo = evento.target;//Seleciona o botão que foi clicado
+        const tarefaDeletada = botaoAlvo.parentElement;//seleciona a "li", mãe do paragrafo em que este botão se encontra
+        
+        //console.log(tarefaDeletada);
+    
+        tarefaDeletada.remove();//removendo o elemento "Tarefa Deletada"
+    
+        return botaoAlvo;
     }
 
 })();//fim de nossa IIFE
